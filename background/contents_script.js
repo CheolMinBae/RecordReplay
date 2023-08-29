@@ -71,7 +71,9 @@ function addStartRecordingHandlerLocal(newRecordingObject) {
         })
         //map the event to the recording that has started by querying storage using the data id from the button
         .flatMap((event) => {
-            return newRecordingObject
+            return new Promise(resolve => {
+                resolve(newRecordingObject)
+            })
         })
         //we need to instruct background script to start the tab with the recording
         .switchMap(
@@ -246,11 +248,13 @@ const init = () => {
         button.classList.add('record-button');
         button.textContent="녹화 on";
         button.onclick=() => {
-            chrome.runtime.sendMessage({type: "record"}).then(() => {
-                recordStart();
-            });
+            
         }
         article.appendChild(button);
+        // chrome.runtime.sendMessage({type: "record"}).then(() => {
+        //     readyStart();
+        // });
+        readyStart();
     }
 }
 
@@ -268,7 +272,7 @@ const observeUrlChange = () => {
   observer.observe(body, { childList: true, subtree: true });
 };
 
-const recordStart = () => {
+const readyStart = () => {
     // create new record
     const newRecording = new Recording({
         //displayed fields from form
@@ -296,7 +300,7 @@ const recordStart = () => {
     console.log("in recorad start")
     // start new record
     addStartRecordingHandlerLocal(newRecording);
-    $('#article > .buttons > .record-button').trigger('click')
+    // $('#article > .buttons > .record-button').trigger('click')
 }
 
 window.addEventListener('load', function(){
