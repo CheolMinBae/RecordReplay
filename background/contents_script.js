@@ -306,6 +306,8 @@ const readyStart = () => {
 window.addEventListener('load', function(){
   //실행될 코드
   console.log('on load')
-  new MessageMonitor().initialise();
+  console.log(MessageMonitor);
+  const messageMonitor = new MessageMonitor();
+  messageMonitor.initialise();
   observeUrlChange()
 });

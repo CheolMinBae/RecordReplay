@@ -16,7 +16,7 @@ class MessageMonitor {
         //this is where all the work gets done
         //all background script actions only take place as a response to user interface messages
         //ALL MESSAGES ASYNC - YOU MUST SEND A RESPONSE TO AVOID ERRORS
-
+        console.log("init message monitors")
         this.newRecordingActionObservable = this.newRecordingObservable
             //then we can report what we are doing
             .do((msgObject) =>
